@@ -1,0 +1,7 @@
+node_modules
+.output
+.noofpi
+*.log
+.env
+.env.*
+!.env.example

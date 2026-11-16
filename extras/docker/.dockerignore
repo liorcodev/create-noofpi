@@ -1,0 +1,8 @@
+node_modules
+.output
+.noofpi
+.git
+.github
+.env
+.env.*
+*.log

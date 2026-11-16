@@ -1,0 +1,38 @@
+{
+  "name": "create-noofpi",
+  "version": "1.0.0",
+  "description": "Scaffold a new noofpi project",
+  "license": "MIT",
+  "author": "Lior Cohen",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liorcodev/create-noofpi.git"
+  },
+  "homepage": "https://liorcodev.github.io/noofpi-docs/",
+  "bugs": {
+    "url": "https://github.com/liorcodev/create-noofpi/issues"
+  },
+  "keywords": [
+    "noofpi",
+    "create",
+    "scaffold",
+    "vue",
+    "vite"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "bin": {
+    "create-noofpi": "./bin/create-noofpi.mjs"
+  },
+  "files": [
+    "bin",
+    "extras",
+    "lib",
+    "template"
+  ],
+  "engines": {
+    "node": ">=20"
+  }
+}
