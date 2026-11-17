@@ -44,7 +44,7 @@ Without a TTY or with `--yes`, install and git only run when asked for.
 
 ### Templates
 
-- `starter`: welcome page, layout, error page, middleware and example component, composable and util.
+- `starter`: welcome page, layout, error page, request-logging server middleware and example component, composable and util.
 - `minimal`: a single welcome page.
 
 ### Presets

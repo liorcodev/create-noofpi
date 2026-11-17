@@ -12,5 +12,13 @@
     "noEmit": true,
     "isolatedModules": true
   },
-  "include": ["app", "server", "shared", "tests", ".noofpi/*.d.ts", "noofpi.config.ts", "env.d.ts"]
+  "include": [
+    "app",
+    "server",
+    "shared",
+    "tests",
+    ".noofpi/*.d.ts",
+    "noofpi.config.ts",
+    "env.d.ts"
+  ]
 }

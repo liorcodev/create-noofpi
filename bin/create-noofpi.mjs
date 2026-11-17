@@ -2,7 +2,12 @@
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { generateProject } from "../lib/generate.mjs";
-import { parseArgs, resolveOptions, toPackageName, USAGE } from "../lib/options.mjs";
+import {
+  parseArgs,
+  resolveOptions,
+  toPackageName,
+  USAGE,
+} from "../lib/options.mjs";
 import { dim, green, intro, note, outro, step } from "../lib/ui.mjs";
 import { readFileSync } from "node:fs";
 

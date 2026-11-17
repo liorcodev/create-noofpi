@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.1.1] - 2026-11-17
+
+### Changed
+
+- Starter template: `server/middleware/log.ts` replaces `app/middleware/log.global.ts`. It logs every request (pages, the doofpi API and the proxy) with its response status, method, path and duration in dev, instead of only logging navigations.
+
+### Removed
+
+- Starter template: `app/middleware/log.global.ts`.
+
 ## [1.1.0] - 2026-11-17
 
 ### Added
