@@ -2,4 +2,8 @@
 .output
 node_modules
 bun.lock
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
 README.md
+worker-configuration.d.ts

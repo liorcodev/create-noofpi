@@ -1,6 +1,7 @@
 node_modules
 .output
 .noofpi
+.wrangler
 *.log
 .env
 .env.*

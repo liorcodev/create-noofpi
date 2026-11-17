@@ -1,9 +1,8 @@
 #!/usr/bin/env node
-import { existsSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { generateProject } from "../lib/generate.mjs";
-import { parseArgs, resolveOptions, USAGE } from "../lib/options.mjs";
+import { parseArgs, resolveOptions, toPackageName, USAGE } from "../lib/options.mjs";
 import { dim, green, intro, note, outro, step } from "../lib/ui.mjs";
 import { readFileSync } from "node:fs";
 
@@ -29,18 +28,9 @@ const target = path.resolve(options.name);
 const packageName = toPackageName(path.basename(target));
 options.name = packageName;
 
-if (!/^[a-z0-9][a-z0-9._-]*$/.test(packageName)) {
-  fail(`"${path.basename(target)}" is not a valid project name.`);
-}
-if (existsSync(target) && readdirSync(target).length > 0 && !options.force) {
-  fail(
-    `${target} is not empty. Pick another name or pass --force to write into it.`,
-  );
-}
-
 generateProject(options, target);
 
-const pm = packageManager();
+const pm = options.pm;
 const run = pm === "npm" ? "npm run" : pm;
 const relative = path.relative(process.cwd(), target);
 step(`Created ${green(packageName)} ${dim(`in ${target}`)}`);
@@ -56,6 +46,18 @@ if (options.install) {
     }).status === 0;
   if (!installed) console.error(`${pm} install failed, run it yourself.`);
 }
+const cloudflare = options.preset.startsWith("cloudflare-");
+let typed = false;
+if (installed && cloudflare) {
+  step("Generating binding types with wrangler");
+  typed =
+    spawnSync(pm, ["run", "types"], {
+      cwd: target,
+      stdio: "inherit",
+      shell: process.platform === "win32",
+    }).status === 0;
+  if (!typed) console.error(`${run} types failed, run it yourself.`);
+}
 if (options.git && !insideGitRepo(target)) {
   spawnSync("git", ["init"], { cwd: target, stdio: "ignore" });
 }
@@ -63,6 +65,7 @@ if (options.git && !insideGitRepo(target)) {
 const steps = [
   ...(relative ? [`cd ${relative}`] : []),
   ...(installed ? [] : [`${pm} install`]),
+  ...(cloudflare && !typed ? [`${run} types`] : []),
   `${run} dev`,
 ];
 note("Next steps", steps);
@@ -78,23 +81,6 @@ function insideGitRepo(cwd) {
       stdio: "ignore",
     }).status === 0
   );
-}
-
-function toPackageName(value) {
-  return value
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/^[._]+/, "")
-    .replace(/[^a-z0-9._-]+/g, "-");
-}
-
-function packageManager() {
-  const agent = process.env.npm_config_user_agent ?? "";
-  for (const pm of ["bun", "pnpm", "yarn"]) {
-    if (agent.startsWith(pm)) return pm;
-  }
-  return agent.startsWith("npm") ? "npm" : "bun";
 }
 
 function version() {
