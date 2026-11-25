@@ -26,6 +26,7 @@ create-noofpi <project-name> [options]
 --[no-]ssr          Server-side rendering (default: on, required by sfetch)
 --[no-]tailwind     Tailwind CSS (default: on)
 --[no-]ui           noofpi-ui components and theme.css (needs Tailwind, default: off)
+--[no-]images       sharp for optimized images with ?image imports (default: off)
 --[no-]i18n         Typed i18n, locales in app/locales (default: off)
 --locales <list>    Comma separated locales, the first is the default (default: en)
 --[no-]eslint       ESLint config and lint script

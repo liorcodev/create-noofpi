@@ -2,6 +2,21 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+## [1.2.0] - 2026-11-25
+
+### Added
+
+- `--[no-]images` and an "Add image optimization (sharp)?" prompt: adds `sharp` as a dev dependency, which noofpi needs for `?image` imports (default: off).
+
+### Changed
+
+- The generated Dockerfile (`--docker`) has three stages: the build, the production dependencies (`--production` / `--omit=dev` / `--prod`) and the final image, which only holds those and `.output`. It runs as the `node` / `bun` user and declares a `HEALTHCHECK`.
+- With the `docker` preset, the generated `.dockerignore` no longer excludes `.output`, which that preset's Dockerfile copies.
+- Generated projects depend on `noofpi` `^2.0.0`.
+- Projects with Tailwind CSS (the default, and always with `--ui`) get `tailwindcss` and `@tailwindcss/vite` as dev dependencies. They are optional peer dependencies of noofpi 2, which no longer installs them itself.
+
 ## [1.1.1] - 2026-11-17
 
 ### Changed
